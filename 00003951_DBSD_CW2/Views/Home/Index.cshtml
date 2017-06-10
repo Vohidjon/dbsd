@@ -1,0 +1,52 @@
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Vacancy>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="jumbotron">
+    <h1>Recruitizer</h1>
+    <p class="lead">Recruitizer is an awesome tool to manage and hire high qualified applicants around the globe.</p>
+    <p>@Html.ActionLink("Start Now", "Register", "Login", null, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+<h2>Open vacancies</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Department
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Posted At
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyCreatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Apply", "Apply", new { id=item.VacancyId }, new { @class = "text-success" })
+        </td>
+    </tr>
+}
+
+</table>

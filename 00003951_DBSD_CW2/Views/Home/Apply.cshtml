@@ -1,0 +1,66 @@
+﻿@model _00003951_DBSD_CW2.Models.Application
+
+@{
+    ViewBag.Title = "Apply";
+}
+
+<h2>@ViewBag.VacancyTitle</h2>
+
+
+@using (Html.BeginForm("Apply", "Home", routeValues: new {id = ViewBag.VacancyId }, method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Application Form</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Email</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CandidateEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CandidateEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Full Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CandidateName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CandidateName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Phone</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CandidatePhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CandidatePhone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Address</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CandidateAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CandidateAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Apply" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

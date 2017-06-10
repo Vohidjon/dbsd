@@ -1,0 +1,47 @@
+﻿@model _00003951_DBSD_CW2.Models.Recruiter
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm("Register", "Login")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecruiterName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RecruiterName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Email</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecruiterEmail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                @Html.ValidationMessageFor(model => model.RecruiterEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Password</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RecruiterPassword, new { htmlAttributes = new { @class = "form-control", @type = "password"} })
+                @Html.ValidationMessageFor(model => model.RecruiterPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Register" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Application>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@ViewBag.VacancyTitle</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Stage
+        </th>
+        <th>
+            Candidate Email
+        </th>
+        <th>
+            Candidate Name
+        </th>
+        <th>
+            Candidate Phone
+        </th>
+        <th>
+            Candidate Address
+        </th>
+        <th>
+            Applied at
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stage.StageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidatePhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateAddress)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationCreatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Move to stage...", "Update", "Application", new { id=item.ApplicationId }, null) |
+            @Html.ActionLink("Disqualify", "Disqualify", "Application", new { id=item.ApplicationId }, new {@class = "text-danger" })
+        </td>
+    </tr>
+}
+
+</table>

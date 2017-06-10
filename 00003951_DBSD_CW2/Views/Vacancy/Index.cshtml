@@ -1,0 +1,73 @@
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Vacancy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vacancies</h2>
+<br />
+
+@using (@Html.BeginForm("Index", "Vacancy", FormMethod.Get))
+{
+    <div class="form-inline">
+        <div class="form-group">
+            @Html.TextBox("fTitle", ViewBag.fTitle as string, new { @class = "form-control", @placeholder = "Title"  })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBox("fDescription", ViewBag.fDescription as string, new { @class = "form-control", @placeholder = "Description" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+
+        <div class="form-group">
+            @Html.ActionLink("Reset", "Index", "Vacancy", new { }, new { @class = "btn btn-default"})
+        </div>
+    </div>
+}
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Department
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Created At
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacancyCreatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Candidates", "Details", new { id = item.VacancyId }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.VacancyId })
+        </td>
+    </tr>
+}
+
+</table>
