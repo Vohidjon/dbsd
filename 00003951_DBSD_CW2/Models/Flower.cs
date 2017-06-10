@@ -10,6 +10,7 @@ namespace _00003951_DBSD_CW2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ImgUrl { get; set; }
         public float Price { get; set; }
         public int Remaining { get; set; }
         public int FlowerCategoryId { get; set; }

@@ -9,5 +9,6 @@ namespace _00003951_DBSD_CW2.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImgUrl { get; set; }
     }
 }

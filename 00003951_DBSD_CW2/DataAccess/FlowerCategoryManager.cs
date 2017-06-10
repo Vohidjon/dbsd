@@ -29,6 +29,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                 {
                     cmd.CommandText = @"SELECT [id]
                                                 ,[name]
+                                                ,[img_url]
                                                 FROM [dbo].[flower_category]";
                     conn.Open();
                     using (DbDataReader reader = cmd.ExecuteReader())
@@ -38,7 +39,8 @@ namespace _00003951_DBSD_CW2.DataAccess
                             FlowerCategory category = new FlowerCategory()
                             {
                                 Id = reader.GetInt32(0),
-                                Name = reader.GetString(1)
+                                Name = reader.GetString(1),
+                                ImgUrl = reader.GetString(2)
                             };
                             list.Add(category);
                         }
@@ -59,6 +61,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                 {
                     cmd.CommandText = @"SELECT [id],
                                                 [name]
+                                                ,[img_url]
                                         FROM [dbo].[flower_category]
                                         WHERE id = @id";
                     cmd.AddParameter("@id", System.Data.DbType.Int32, id);
@@ -70,7 +73,8 @@ namespace _00003951_DBSD_CW2.DataAccess
                             category = new FlowerCategory()
                             {
                                 Id = reader.GetInt32(0),
-                                Name = reader.GetString(1)
+                                Name = reader.GetString(1),
+                                ImgUrl = reader.GetString(2)
                             };
                         }
                     }

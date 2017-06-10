@@ -30,6 +30,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     cmd.CommandText = @"SELECT [id]
                                                 ,[name]
                                                 ,[description]
+                                                ,[img_url]
                                                 ,[price]
                                                 ,[remaining]
                                                 ,[flower_category_id]
@@ -44,9 +45,10 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
                                 Description = reader.GetString(2),
-                                Price = reader.GetFloat(3),
-                                Remaining = reader.GetInt32(4),
-                                FlowerCategoryId = reader.GetInt32(5)
+                                ImgUrl = reader.GetString(3),
+                                Price = reader.GetFloat(4),
+                                Remaining = reader.GetInt32(5),
+                                FlowerCategoryId = reader.GetInt32(6)
                             };
                             list.Add(flower);
                         }
@@ -75,6 +77,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     cmd.CommandText = @"SELECT [id]
                                                 ,[name]
                                                 ,[description]
+                                                ,[img_url]
                                                 ,[price]
                                                 ,[remaining]
                                                 ,[flower_category_id]
@@ -95,9 +98,10 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
                                 Description = reader.GetString(2),
-                                Price = reader.GetFloat(3),
-                                Remaining = reader.GetInt32(4),
-                                FlowerCategoryId = reader.GetInt32(5)
+                                ImgUrl = reader.GetString(3),
+                                Price = reader.GetFloat(4),
+                                Remaining = reader.GetInt32(5),
+                                FlowerCategoryId = reader.GetInt32(6)
                             };
                             list.Add(flower);
                         }
@@ -119,6 +123,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     
                     cmd.AddParameter("@name", System.Data.DbType.String, flower.Name);
                     cmd.AddParameter("@description", System.Data.DbType.String, flower.Description);
+                    cmd.AddParameter("@img_url", System.Data.DbType.String, flower.ImgUrl);
                     cmd.AddParameter("@price", System.Data.DbType.Double, flower.Price);
                     cmd.AddParameter("@remaining", System.Data.DbType.Int32, flower.Remaining);
                     conn.Open();
@@ -137,6 +142,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     cmd.CommandText = @"SELECT [id],
                                                 ,[name]
                                                 ,[description]
+                                                ,[img_url]
                                                 ,[price]
                                                 ,[remaining]
                                                 ,[flower_category_id]
@@ -153,9 +159,10 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
                                 Description = reader.GetString(2),
-                                Price = reader.GetFloat(3),
-                                Remaining = reader.GetInt32(4),
-                                FlowerCategoryId = reader.GetInt32(5)
+                                ImgUrl = reader.GetString(3),
+                                Price = reader.GetFloat(4),
+                                Remaining = reader.GetInt32(5),
+                                FlowerCategoryId = reader.GetInt32(6)
                             };
                         }
                     }
@@ -193,6 +200,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     cmd.AddParameter("@id", System.Data.DbType.Int32, id);
                     cmd.AddParameter("@name", System.Data.DbType.String, flower.Name);
                     cmd.AddParameter("@description", System.Data.DbType.String, flower.Description);
+                    cmd.AddParameter("@img_url", System.Data.DbType.String, flower.ImgUrl);
                     cmd.AddParameter("@price", System.Data.DbType.Double, flower.Price);
                     cmd.AddParameter("@remaining", System.Data.DbType.Int32, flower.Remaining);
 
