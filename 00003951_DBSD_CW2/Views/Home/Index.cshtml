@@ -5,42 +5,25 @@
 }
 <br />
 <div class="jumbotron">
-    <h1>Recruitizer</h1>
-    <p class="lead">Recruitizer is an awesome tool to manage and hire high qualified applicants around the globe.</p>
+    <h1>Flowers</h1>
+    <p class="lead">Love is the answer, and you know that for sure. Love is the <span style="font-size: 30px; color: red">flower</span>, you've got to let it grow</p>
     <p>@Html.ActionLink("Start Now", "Register", "Login", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
 
-<h2>Open vacancies</h2>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div>
+                <img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiqzq3c8LLUAhVlOpoKHbltAwsQjRwIBw&url=http%3A%2F%2Fall-free-download.com%2Ffree-photos%2Fflower-images.html&psig=AFQjCNHV1s-_6lcEN2VLmJx2S_jgkalMTg&ust=1497170457167902" alt="Alternate Text" />
+            </div>
+            <div>
+                @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
+            </div>
+            <div>
+                @Html.ActionLink("View & Enjoy", "Order", new { id = item.Id }, new { @class = "btn btn-block btn-success btn-lg" })
+            </div>
+        </div>
+    }
 
-<table class="table">
-    <tr>
-        <th>
-            Department
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Description
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Order", "Order", new { id=item.Id }, new { @class = "text-success" })
-        </td>
-    </tr>
-}
-
-</table>
+</div>

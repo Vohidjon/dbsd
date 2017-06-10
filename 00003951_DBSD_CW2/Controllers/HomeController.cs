@@ -12,16 +12,8 @@ namespace _00003951_DBSD_CW2.Controllers
     {
         public ActionResult Index(string fTitle, string fDescription)
         {
-            FlowerManager manager = new FlowerManager();
             FlowerCategoryManager categoryManager = new FlowerCategoryManager();
-            IList<Flower> list = manager.FilterFlowers(fTitle, fDescription);
-            IList<FlowerCategory> categoris = categoryManager.GetFlowerCategories();
-            foreach (Flower item in list)
-            {
-                item.FlowerCategory = categoris.First(d => d.Id == item.FlowerCategoryId);
-            }
-            ViewBag.fTitle = fTitle;
-            ViewBag.fDescription = fDescription;
+            IList<FlowerCategory> list = categoryManager.GetFlowerCategories();
             return View(list);
         }
 

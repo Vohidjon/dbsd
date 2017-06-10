@@ -12,17 +12,17 @@ namespace _00003951_DBSD_CW2.Controllers
     public class FlowerController : BaseController
     {
         // GET: Vacancy
-        public ActionResult Index(string fTitle, string fDescription)
+        public ActionResult Index(string fName, string fDescription)
         {
             FlowerManager manager = new FlowerManager();
             FlowerCategoryManager categoryManager = new FlowerCategoryManager();
-            IList<Flower> list = manager.FilterFlowers(fTitle, fDescription);
+            IList<Flower> list = manager.FilterFlowers(fName, fDescription);
             IList<FlowerCategory> categoris = categoryManager.GetFlowerCategories();
             foreach(Flower item in list)
             {
                 item.FlowerCategory = categoris.First(d => d.Id == item.FlowerCategoryId);
             }
-            ViewBag.fTitle = fTitle;
+            ViewBag.fTitle = fName;
             ViewBag.fDescription = fDescription;
             return View(list);
         }
