@@ -72,7 +72,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     {
                         description = "";
                     }
-                    cmd.CommandText = @"SELECT [id],
+                    cmd.CommandText = @"SELECT [id]
                                                 ,[name]
                                                 ,[description]
                                                 ,[price]

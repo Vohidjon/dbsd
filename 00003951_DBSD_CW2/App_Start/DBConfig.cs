@@ -10,8 +10,8 @@ namespace _00003951_DBSD_CW2.App_Start
     {
         public static void initialize()
         {
-            DBInitializer initializer = new DBInitializer();
-            initializer.Run();
+            //DBInitializer initializer = new DBInitializer();
+            //initializer.Run();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Vacancy>
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Flower>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <h2>Vacancies</h2>
 <br />
 
-@using (@Html.BeginForm("Index", "Vacancy", FormMethod.Get))
+@using (@Html.BeginForm("Index", "Flower", FormMethod.Get))
 {
     <div class="form-inline">
         <div class="form-group">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.ActionLink("Reset", "Index", "Vacancy", new { }, new { @class = "btn btn-default"})
+            @Html.ActionLink("Reset", "Index", "Flower", new { }, new { @class = "btn btn-default"})
         </div>
     </div>
 }
@@ -43,29 +43,22 @@
         <th>
             Description
         </th>
-        <th>
-            Created At
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyTitle)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyDescription)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyCreatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Candidates", "Details", new { id = item.VacancyId }) |
-            @Html.ActionLink("Edit", "Edit", new { id = item.VacancyId })
+            @Html.ActionLink("Order", "Order", new { id = item.Id })
         </td>
     </tr>
 }

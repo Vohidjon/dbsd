@@ -1,4 +1,4 @@
-﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Vacancy>
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.Flower>
 
 @{
     ViewBag.Title = "Home Page";
@@ -23,28 +23,22 @@
         <th>
             Description
         </th>
-        <th>
-            Posted At
-        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyTitle)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyDescription)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VacancyCreatedAt)
-        </td>
-        <td>
-            @Html.ActionLink("Apply", "Apply", new { id=item.VacancyId }, new { @class = "text-success" })
+            @Html.ActionLink("Order", "Order", new { id=item.Id }, new { @class = "text-success" })
         </td>
     </tr>
 }
