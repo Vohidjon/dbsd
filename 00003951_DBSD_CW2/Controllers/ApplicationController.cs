@@ -12,31 +12,31 @@ namespace _00003951_DBSD_CW2.Controllers
     public class ApplicationController : BaseController
     {
         // GET: Application
-        [HttpGet]
-        public ActionResult Update(int id)
-        {
-            ApplicationManager manager = new ApplicationManager();
-            Application model = manager.GetApplicationById(id);
+        //[HttpGet]
+        //public ActionResult Update(int id)
+        //{
+        //    ApplicationManager manager = new ApplicationManager();
+        //    Application model = manager.GetApplicationById(id);
 
-            StageManager stageManager = new StageManager();
-            ViewBag.stages = stageManager.GetStages();
-            return View(model);
-        }
+        //    StageManager stageManager = new StageManager();
+        //    ViewBag.stages = stageManager.GetStages();
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public ActionResult Update(int id, Application application)
-        {
+        //[HttpPost]
+        //public ActionResult Update(int id, Application application)
+        //{
             
-            ApplicationManager manager = new ApplicationManager();
-            manager.MoveToStage(id, application.StageId);
-            return RedirectToAction("Details", "Vacancy", new { id = id });
-        }
-        [HttpGet]
-        public ActionResult Disqualify(int id)
-        {
-            ApplicationManager manager = new ApplicationManager();
-            manager.Disqualify(id);
-            return RedirectToAction("Details", "Vacancy", new { id = id });
-        }
+        //    ApplicationManager manager = new ApplicationManager();
+        //    manager.MoveToStage(id, application.StageId);
+        //    return RedirectToAction("Details", "Vacancy", new { id = id });
+        //}
+        //[HttpGet]
+        //public ActionResult Disqualify(int id)
+        //{
+        //    ApplicationManager manager = new ApplicationManager();
+        //    manager.Disqualify(id);
+        //    return RedirectToAction("Details", "Vacancy", new { id = id });
+        //}
     }
 }

@@ -10,66 +10,66 @@ namespace _00003951_DBSD_CW2.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index(string fTitle, string fDescription)
-        {
-            VacancyManager manager = new VacancyManager();
-            IList<Vacancy> list = manager.GetAllVacancies(fTitle, fDescription);
-            DepartmentManager depManager = new DepartmentManager();
-            IList<Department> departments = depManager.GetDepartments();
-            foreach(Vacancy item in list)
-            {
-                item.Department = departments.First(d => d.DepartmentId == item.DepartmentId);
-            }
+        //public ActionResult Index(string fTitle, string fDescription)
+        //{
+        //    VacancyManager manager = new VacancyManager();
+        //    IList<Vacancy> list = manager.GetAllVacancies(fTitle, fDescription);
+        //    DepartmentManager depManager = new DepartmentManager();
+        //    IList<Department> departments = depManager.GetDepartments();
+        //    foreach(Vacancy item in list)
+        //    {
+        //        item.Department = departments.First(d => d.DepartmentId == item.DepartmentId);
+        //    }
 
-            return View(list);
-        }
+        //    return View(list);
+        //}
 
-        [HttpGet]
-        public ActionResult Apply(int id)
-        {
-            VacancyManager manager = new VacancyManager();
-            Vacancy vacancy = manager.GetVacancyById(id);
-            ViewBag.VacancyTitle = vacancy.VacancyTitle;
-            ViewBag.VacancyId = vacancy.VacancyId;
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Apply(int id)
+        //{
+        //    VacancyManager manager = new VacancyManager();
+        //    Vacancy vacancy = manager.GetVacancyById(id);
+        //    ViewBag.VacancyTitle = vacancy.VacancyTitle;
+        //    ViewBag.VacancyId = vacancy.VacancyId;
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult Apply(int id, Application application)
-        {
-            try
-            {
-                ApplicationManager appManager = new ApplicationManager();
-                StageManager stageManager = new StageManager();
-                application.VacancyId = id;
+        //[HttpPost]
+        //public ActionResult Apply(int id, Application application)
+        //{
+        //    try
+        //    {
+        //        ApplicationManager appManager = new ApplicationManager();
+        //        StageManager stageManager = new StageManager();
+        //        application.VacancyId = id;
 
-                application.StageId = stageManager.GetFirst().StageId;
-                application.ApplicationCreatedAt = DateTime.Now;
-                appManager.CreateApplication(application);
+        //        application.StageId = stageManager.GetFirst().StageId;
+        //        application.ApplicationCreatedAt = DateTime.Now;
+        //        appManager.CreateApplication(application);
 
-                return RedirectToAction("Success");
-            } catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Success");
+        //    } catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        public ActionResult Success()
-        {
-            return View();
-        }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        //public ActionResult Success()
+        //{
+        //    return View();
+        //}
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }
