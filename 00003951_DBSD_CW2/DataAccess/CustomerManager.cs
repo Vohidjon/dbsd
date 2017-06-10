@@ -10,7 +10,7 @@ using System.Web.Configuration;
 
 namespace _00003951_DBSD_CW2.DataAccess
 {
-    public class RecruiterManager
+    public class CustomerManager
     {
         public static string ConnectionStr
         {
@@ -22,85 +22,85 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
         }
 
-        public Recruiter GetRecruiterById(int id)
+        public Customer GetCustomerById(int id)
         {
-            Recruiter recruiter = null;
+            Customer customer = null;
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [recruiter_id],
-                                                [recruiter_name],
-                                                [recruiter_email],
-                                                [recruiter_password]
-                                        FROM [dbo].[recruiter]
-                                        WHERE recruiter_id = @recruiter_id";
+                    cmd.CommandText = @"SELECT [id],
+                                                [full_name],
+                                                [email],
+                                                [password]
+                                        FROM [dbo].[customer]
+                                        WHERE id = @id";
                     
-                    cmd.AddParameter("@recruiter_id", DbType.Int32, id);
+                    cmd.AddParameter("@id", DbType.Int32, id);
                     conn.Open();
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            recruiter = new Recruiter()
+                            customer = new Customer()
                             {
-                                RecruiterId = reader.GetInt32(0),
-                                RecruiterName = reader.GetString(1),
-                                RecruiterEmail = reader.GetString(2),
-                                RecruiterPassword = reader.GetString(3)
+                                Id = reader.GetInt32(0),
+                                FullName = reader.GetString(1),
+                                Email = reader.GetString(2),
+                                Password = reader.GetString(3)
                             };
                         }
                     }
                 }
             }
-            return recruiter;
+            return customer;
         }
 
-        public Recruiter GetRecruiterByEmail(string email)
+        public Customer GetCustomerByEmail(string email)
         {
-            Recruiter recruiter = null;
+            Customer customer = null;
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [recruiter_id],
-                                                [recruiter_name],
-                                                [recruiter_email],
-                                                [recruiter_password]
-                                        FROM [dbo].[recruiter]
-                                        WHERE recruiter_email = @recruiter_email";
+                    cmd.CommandText = @"SELECT [id],
+                                                [full_name],
+                                                [email],
+                                                [password]
+                                        FROM [dbo].[customer]
+                                        WHERE email = @email";
 
-                    cmd.AddParameter("@recruiter_email", DbType.String, email);
+                    cmd.AddParameter("@email", DbType.String, email);
                     conn.Open();
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            recruiter = new Recruiter()
+                            customer = new Customer()
                             {
-                                RecruiterId = reader.GetInt32(0),
-                                RecruiterName = reader.GetString(1),
-                                RecruiterEmail = reader.GetString(2),
-                                RecruiterPassword = reader.GetString(3)
+                                Id = reader.GetInt32(0),
+                                FullName = reader.GetString(1),
+                                Email = reader.GetString(2),
+                                Password = reader.GetString(3)
                             };
                         }
                     }
                 }
             }
-            return recruiter;
+            return customer;
         }
 
-        public void CreateRecruiter(Recruiter recruiter)
+        public void CreateCustomer(Customer customer)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"udpCreateRecruiter";
+                    cmd.CommandText = @"udpCreateCustomer";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.AddParameter("@recruiter_name", DbType.String, recruiter.RecruiterName);
-                    cmd.AddParameter("@recruiter_email", DbType.String, recruiter.RecruiterEmail);
-                    cmd.AddParameter("@recruiter_password", DbType.String, recruiter.RecruiterPassword);
+                    cmd.AddParameter("@full_name", DbType.String, customer.FullName);
+                    cmd.AddParameter("@email", DbType.String, customer.Email);
+                    cmd.AddParameter("@password", DbType.String, customer.Password);
                     
                     conn.Open();
                     cmd.ExecuteNonQuery();

@@ -14,14 +14,14 @@ namespace _00003951_DBSD_CW2.Models
         /**
          * The number used when delivering
          */
-        public string PhoneNumber { get; set; }
+        public string DeliveryPhone { get; set; }
         public bool IsGift { get; set; }
         /**
          * This text is attached to the flower if the order is a gift
          * For example: Happy birthday!!! Your family
          */
         public string GiftCardText { get; set; }
-        public int Status { get; set; }
+        public int ProcessStatus { get; set; }
         public Customer Customer { get; set; }
     }
 }
