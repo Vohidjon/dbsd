@@ -155,15 +155,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\VacancyController.cs" />
-    <Compile Include="DataAccess\ApplicationManager.cs" />
     <Compile Include="DataAccess\DbCommandExtensionMethods.cs" />
     <Compile Include="DataAccess\DBInitializer.cs" />
     <Compile Include="DataAccess\FlowerManager.cs" />
     <Compile Include="DataAccess\FlowerCategoryManager.cs" />
     <Compile Include="DataAccess\CustomerManager.cs" />
     <Compile Include="DataAccess\FloweOrderManager.cs" />
-    <Compile Include="DataAccess\StageManager.cs" />
-    <Compile Include="DataAccess\VacancyManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -7,10 +7,10 @@ namespace _00003951_DBSD_CW2.Controllers
     public class BaseController : Controller
     {
         // fetches currently logged in recruiter
-        public Recruiter getRecruiter()
+        public Customer getCustomer()
         {
-            RecruiterManager manager = new RecruiterManager();
-            return manager.GetRecruiterByEmail(User.Identity.Name);
+            CustomerManager manager = new CustomerManager();
+            return manager.GetCustomerByEmail(User.Identity.Name);
         }
     }
 }

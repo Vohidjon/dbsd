@@ -16,7 +16,7 @@ namespace _00003951_DBSD_CW2.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel loginModel, string returnUrl)
         {
-            RecruiterManager manager = new RecruiterManager();
+            CustomerManager manager = new CustomerManager();
             bool authenticated = manager.Authenticate(loginModel.Email, loginModel.Password);
             if (authenticated)
             {
@@ -29,7 +29,7 @@ namespace _00003951_DBSD_CW2.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Vacancy");
+                    return RedirectToAction("Index", "Flower");
                 }
             }
             else
@@ -46,15 +46,15 @@ namespace _00003951_DBSD_CW2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(Recruiter recruiter)
+        public ActionResult Register(Customer customer)
         {
             try
             {
-                RecruiterManager manager = new RecruiterManager();
-                manager.CreateRecruiter(recruiter);
-                FormsAuthentication.SetAuthCookie(recruiter.RecruiterEmail, false);
+                CustomerManager manager = new CustomerManager();
+                manager.CreateCustomer(customer);
+                FormsAuthentication.SetAuthCookie(customer.Email, false);
 
-                return RedirectToAction("Index", "Vacancy");
+                return RedirectToAction("Index", "Flower");
             }
             catch
             {
