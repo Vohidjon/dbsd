@@ -18,7 +18,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                     .ConnectionStrings["ConnStr"]
                     .ConnectionString;
             }
-        }
+        }   
 
         public IList<FlowerCategory> GetFlowerCategories()
         {
@@ -59,8 +59,8 @@ namespace _00003951_DBSD_CW2.DataAccess
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [id],
-                                                [name]
+                    cmd.CommandText = @"SELECT [id]
+                                                ,[name]
                                                 ,[img_url]
                                         FROM [dbo].[flower_category]
                                         WHERE id = @id";

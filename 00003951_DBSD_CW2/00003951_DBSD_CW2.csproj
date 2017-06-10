@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\flowers\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
