@@ -182,7 +182,7 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
         }
 
-        public void UpdateFlower(Flower flower)
+        public void UpdateFlower(int id, Flower flower)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
@@ -190,7 +190,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                 {
                     cmd.CommandText = @"udpUpdateFlower";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.AddParameter("@id", System.Data.DbType.Int32, flower.Id);
+                    cmd.AddParameter("@id", System.Data.DbType.Int32, id);
                     cmd.AddParameter("@name", System.Data.DbType.String, flower.Name);
                     cmd.AddParameter("@description", System.Data.DbType.String, flower.Description);
                     cmd.AddParameter("@price", System.Data.DbType.Double, flower.Price);

@@ -5,9 +5,9 @@ using System.Web;
 
 namespace _00003951_DBSD_CW2.Models
 {
-    public class VacancyWrapper
+    public class FlowerWrapper
     {
-        //public Vacancy vacancy { get; set; }
-        //public IList<Department> departments { get; set; }
+        public Flower flower { get; set; }
+        public IList<FlowerCategory> categories { get; set; }
     }
 }

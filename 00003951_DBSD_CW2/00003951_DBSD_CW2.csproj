@@ -154,7 +154,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\VacancyController.cs" />
+    <Compile Include="Controllers\FlowerController.cs" />
     <Compile Include="DataAccess\DbCommandExtensionMethods.cs" />
     <Compile Include="DataAccess\DBInitializer.cs" />
     <Compile Include="DataAccess\FlowerManager.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Report.cs" />
-    <Compile Include="Models\VacancyWrapper.cs" />
+    <Compile Include="Models\FlowerWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
