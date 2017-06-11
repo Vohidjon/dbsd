@@ -11,6 +11,9 @@
 {
     <div class="form-inline">
         <div class="form-group">
+            @Html.DropDownList("fCategory", new SelectList(ViewBag.categories, "Id", "Name", ViewBag.vacancyId), "--- Select category ----", new { @class = "form-control", @placeholder = "Title" })
+        </div>
+        <div class="form-group">
             @Html.TextBox("fName", ViewBag.fName as string, new { @class = "form-control", @placeholder = "Name"  })
         </div>
 
@@ -40,9 +43,11 @@
                 <h4 class="text-success text-center" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
                     @Html.DisplayFor(modelItem => item.Name)
                 </h4>
+                <hr />
                 <div>
                     Category: @Html.ActionLink(@item.FlowerCategory.Name, "Index", new { categoryId = @item.FlowerCategoryId }, new { @class = "text-primary" })
                 </div>
+                <hr />
                 <p style="height: 150px; overflow: hidden; font-size: 12px; text-align: justify">
                     @Html.DisplayFor(modelItem => item.Description)
                 </p>

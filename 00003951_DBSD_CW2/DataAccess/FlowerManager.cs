@@ -59,7 +59,7 @@ namespace _00003951_DBSD_CW2.DataAccess
             return list;
         }
 
-        public IList<Flower> FilterFlowers(string name, string description)
+        public IList<Flower> FilterFlowers(int? categoryId, string name, string description)
         {
             IList<Flower> list = new List<Flower>();
             using (DbConnection conn = new SqlConnection(ConnectionStr))
@@ -84,11 +84,19 @@ namespace _00003951_DBSD_CW2.DataAccess
                                                 FROM [dbo].[flower]
                                                 WHERE
                                                 name LIKE '%' + @name + '%' 
-                                                AND description LIKE  '%' + @description + '%'";
+                                                AND description LIKE  '%' + @description + '%'" ;
+
                     conn.Open();
 
                     cmd.AddParameter("@name", System.Data.DbType.String, name);
                     cmd.AddParameter("@description", System.Data.DbType.String, description);
+
+                    if (categoryId != null)
+                    {
+                        cmd.CommandText += " AND flower_category_id = @category_id";
+                        cmd.AddParameter("@category_id", System.Data.DbType.Int32, categoryId);
+                    } 
+                    
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
