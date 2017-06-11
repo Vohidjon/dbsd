@@ -36,7 +36,6 @@ namespace _00003951_DBSD_CW2.DataAccess
                                                 ,[flower_category_id]
                                                 FROM [dbo].[flower]";
                     conn.Open();
-
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
