@@ -76,6 +76,23 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
         }
 
+        public void DeleteItem(int id, int customerId)
+        {
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM [dbo].[shopping_cart_item] WHERE [id] = @id AND [customer_id] = @customer_id";
+                    
+                    cmd.AddParameter("@id", DbType.Int32, id);
+                    cmd.AddParameter("@customer_id", DbType.Int32, customerId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void UpdateItem(int id, ShoppingCartItem cartItem)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))
@@ -93,6 +110,41 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
         }
 
+        public ShoppingCartItem GetItemById(int id, int customerId)
+        {
+            ShoppingCartItem item = null;
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [id],
+                                                [customer_id],
+                                                [flower_id],
+                                                [quantity]
+                                        FROM [dbo].[shopping_cart_item]
+                                        WHERE id = @id and customer_id = @customer_id";
+
+                    cmd.AddParameter("@id", DbType.Int32, id);
+                    cmd.AddParameter("@customer_id", DbType.Int32, customerId);
+
+                    conn.Open();
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            item = new ShoppingCartItem()
+                            {
+                                Id = reader.GetInt32(0),
+                                CustomerId = reader.GetInt32(1),
+                                FlowerId = reader.GetInt32(2),
+                                Quantity = reader.GetInt32(3)
+                            };
+                        }
+                    }
+                }
+            }
+            return item;
+        }
 
         public ShoppingCartItem GetItemByFlowerId(int flowerId, int customerId)
         {

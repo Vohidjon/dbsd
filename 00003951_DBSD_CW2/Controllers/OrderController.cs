@@ -1,5 +1,6 @@
 ﻿using _00003951_DBSD_CW2.DataAccess;
 using _00003951_DBSD_CW2.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -26,20 +27,49 @@ namespace _00003951_DBSD_CW2.Controllers
             return View(model);
         }
 
-        // POST: Order/Create
-        [HttpPost]
-        public ActionResult Create()
+        // GET: Order/Checkout
+        public ActionResult Checkout()
         {
-            try
-            {
-                //DepartmentManager manager = new DepartmentManager();
-                //manager.CreateDepartment(department);
+            return View();
+        }
+
+        // POST: Order/Checkout
+        [HttpPost]
+        public ActionResult Checkout(FlowerOrder order)
+        {
+            //try
+            //{
+                Customer user = this.getCustomer();
+                ShoppingCartManager cartManager = new ShoppingCartManager();
+                FlowerOrderManager orderManager = new FlowerOrderManager();
+                order.CustomerId = user.Id;
+                order.CreatedAt = DateTime.Now;
+                order.ProcessStatus = FlowerOrder.UNDER_PROCESS;
+                
+                orderManager.CreateOrder(order);
+                // refetching just created order from db, 
+                // since id property is required for the following logic
+                order = orderManager.GetLastFlowerOrderFOrCustomer(user.Id);
+
+                IList<ShoppingCartItem> cartItems = cartManager.GetItemsByCustomer(user.Id);
+                foreach(ShoppingCartItem cartItem in cartItems)
+                {
+                    OrderItem orderItem = new OrderItem()
+                    {
+                        OrderId = order.Id,
+                        FlowerId = cartItem.FlowerId,
+                        Quantity = cartItem.Quantity
+                    };
+                    orderManager.CreateOrderItem(orderItem);
+                    // delete cart item afterwards
+                    cartManager.DeleteItem(cartItem.Id, user.Id);
+                }
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //}
+            //catch
+            //{
+                //return View();
+            //}
         }
     }
 }

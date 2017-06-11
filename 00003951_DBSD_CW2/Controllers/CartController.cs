@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace _00003951_DBSD_CW2.Controllers
 {
+    [Authorize]
     public class CartController : BaseController
     {
         // GET: Cart
@@ -16,6 +17,12 @@ namespace _00003951_DBSD_CW2.Controllers
             Customer user = this.getCustomer();
             ShoppingCartManager manager = new ShoppingCartManager();
             IList<ShoppingCartItem> list = manager.GetItemsByCustomer(user.Id);
+            FlowerManager flowerManager = new FlowerManager();
+            IList<Flower> flowers = flowerManager.GetFlowers();
+            foreach (ShoppingCartItem item in list)
+            {
+                item.Flower = flowers.First(f => f.Id == item.FlowerId);
+            }
             return View(list);
         }
 
@@ -55,40 +62,38 @@ namespace _00003951_DBSD_CW2.Controllers
         // GET: Cart/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Customer user = this.getCustomer();
+            ShoppingCartManager manager = new ShoppingCartManager();
+            ShoppingCartItem model = manager.GetItemById(id, user.Id);
+            model.Flower = (new FlowerManager()).GetFlowerById(model.FlowerId);
+            return View(model);
         }
 
         // POST: Cart/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ShoppingCartItem model)
         {
             try
             {
-                // TODO: Add update logic here
-
+                Customer user = this.getCustomer();
+                ShoppingCartManager manager = new ShoppingCartManager();
+                
+                manager.UpdateItem(id, model);
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+            } catch {
+                return View(model);
             }
         }
 
 
-        // POST: Cart/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        // GET: Cart/Delete/5
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        public ActionResult Delete(int id)
+        {
+            Customer user = this.getCustomer();
+            ShoppingCartManager manager = new ShoppingCartManager();
+            manager.DeleteItem(id, user.Id);
+            return RedirectToAction("Index");
         }
     }
 }

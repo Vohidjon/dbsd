@@ -1,6 +1,7 @@
 ﻿using _00003951_DBSD_CW2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,8 +34,6 @@ namespace _00003951_DBSD_CW2.DataAccess
                                                 ,[created_at]
                                                 ,[delivery_address]
                                                 ,[delivery_phone]
-                                                ,[is_gift]
-                                                ,[gift_card_text]
                                                 ,[process_status]
 
                                         FROM [dbo].[flower_order]
@@ -51,10 +50,8 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 CustomerId = reader.GetInt32(1),
                                 CreatedAt = reader.GetDateTime(2),
                                 DeliveryAddress = reader.GetString(3),
-                                DeliveryPhone = reader.GetString(4),
-                                IsGift = reader.GetBoolean(5),
-                                GiftCardText = reader.GetString(6),
-                                ProcessStatus = reader.GetInt32(7)
+                                DeliveryPhone = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                ProcessStatus = reader.GetInt32(5)
                             };
                         }
                     }
@@ -62,6 +59,83 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
             return order;
         }
+
+        public void CreateOrderItem(OrderItem orderItem)
+        {
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"udpCreateOrderItem";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.AddParameter("@order_id", DbType.Int32, orderItem.OrderId);
+                    cmd.AddParameter("@flower_id", DbType.Int32, orderItem.FlowerId);
+                    cmd.AddParameter("@quantity", DbType.Int32, orderItem.Quantity);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public FlowerOrder GetLastFlowerOrderFOrCustomer(int customerId)
+        {
+            FlowerOrder order = null;
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT TOP 1 [id]
+                                                ,[customer_id]
+                                                ,[created_at]
+                                                ,[delivery_address]
+                                                ,[delivery_phone]
+                                                ,[process_status]
+
+                                        FROM [dbo].[flower_order]
+                                        WHERE customer_id = @customer_id
+                                        ORDER BY id DESC";
+                    conn.Open();
+                    cmd.AddParameter("@customer_id", System.Data.DbType.Int32, customerId);
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            order = new FlowerOrder()
+                            {
+                                Id = reader.GetInt32(0),
+                                CustomerId = reader.GetInt32(1),
+                                CreatedAt = reader.GetDateTime(2),
+                                DeliveryAddress = reader.GetString(3),
+                                DeliveryPhone = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                ProcessStatus = reader.GetInt32(5)
+                            };
+                        }
+                    }
+                }
+            }
+            return order;
+        }
+
+        public void CreateOrder(FlowerOrder order)
+        {
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"udpCreateOrder";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.AddParameter("@customer_id", DbType.Int32, order.CustomerId);
+                    cmd.AddParameter("@created_at", DbType.DateTime, order.CreatedAt);
+                    cmd.AddParameter("@delivery_address", DbType.String, order.DeliveryAddress);
+                    cmd.AddParameter("@delivery_phone", DbType.String, order.DeliveryPhone);
+                    cmd.AddParameter("@process_status", DbType.Int32, order.ProcessStatus);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public IList<FlowerOrder> GetFlowerOrdersByCustomer(int customerId)
         {
             IList<FlowerOrder> list = new List<FlowerOrder>();
@@ -74,8 +148,6 @@ namespace _00003951_DBSD_CW2.DataAccess
                                                 ,[created_at]
                                                 ,[delivery_address]
                                                 ,[delivery_phone]
-                                                ,[is_gift]
-                                                ,[gift_card_text]
                                                 ,[process_status]
 
                                                 FROM [dbo].[flower_order]
@@ -94,9 +166,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 CreatedAt = reader.GetDateTime(2),
                                 DeliveryAddress = reader.GetString(3),
                                 DeliveryPhone = reader.IsDBNull(4) ? null : reader.GetString(4),
-                                IsGift = reader.GetBoolean(5),
-                                GiftCardText = reader.IsDBNull(6) ? null : reader.GetString(6),
-                                ProcessStatus = reader.GetInt32(7)
+                                ProcessStatus = reader.GetInt32(5)
                             };
                             list.Add(order);
                         }

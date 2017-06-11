@@ -46,7 +46,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 Name = reader.GetString(1),
                                 Description = reader.GetString(2),
                                 ImgUrl = reader.GetString(3),
-                                Price = reader.GetFloat(4),
+                                Price = reader.GetDouble(4),
                                 Remaining = reader.GetInt32(5),
                                 FlowerCategoryId = reader.GetInt32(6)
                             };
@@ -147,7 +147,7 @@ namespace _00003951_DBSD_CW2.DataAccess
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [id],
+                    cmd.CommandText = @"SELECT [id]
                                                 ,[name]
                                                 ,[description]
                                                 ,[img_url]
@@ -168,7 +168,7 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 Name = reader.GetString(1),
                                 Description = reader.GetString(2),
                                 ImgUrl = reader.GetString(3),
-                                Price = reader.GetFloat(4),
+                                Price = reader.GetDouble(4),
                                 Remaining = reader.GetInt32(5),
                                 FlowerCategoryId = reader.GetInt32(6)
                             };

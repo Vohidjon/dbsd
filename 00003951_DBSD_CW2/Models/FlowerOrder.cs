@@ -15,13 +15,37 @@ namespace _00003951_DBSD_CW2.Models
          * The number used when delivering
          */
         public string DeliveryPhone { get; set; }
-        public bool IsGift { get; set; }
-        /**
-         * This text is attached to the flower if the order is a gift
-         * For example: Happy birthday!!! Your family
-         */
-        public string GiftCardText { get; set; }
-        public int ProcessStatus { get; set; }
+        private int _ProcessStatus;
+        public int ProcessStatus {
+            get { return _ProcessStatus; }
+            set {
+                _ProcessStatus = value;
+                switch(value)
+                {
+                    case 1:
+                        {
+                            ProcessStatusText = "Under Process";
+                            break;
+                        }
+                    case 2:
+                        {
+                            ProcessStatusText = "Confirmed";
+                            break;
+                        }
+                    case 3:
+                        {
+                            ProcessStatusText = "Completed";
+                            break;
+                        }
+                }
+            }
+        }
         public Customer Customer { get; set; }
+        public string ProcessStatusText { get; set; }
+        public const int UNDER_PROCESS = 1;
+        public const int CONFIRMED = 2;
+        public const int COMPLETED = 3;
+
+
     }
 }
