@@ -9,7 +9,7 @@
     <p class="lead">Love is the answer, and you know that for sure. Love is the <span style="font-size: 30px; color: red">flower</span>, you've got to let it grow</p>
     <p>@Html.ActionLink("Start Now", "Register", "Login", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
-
+<h1 class="text-center">Categories</h1>
 <div class="row">
     @foreach (var item in Model)
     {
@@ -22,7 +22,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </h3>
                 <div>
-                    @Html.ActionLink("View & Enjoy", "Index", "Flower", new { categoryId = item.Id }, new { @class = "btn btn-block btn-success btn-lg" })
+                    @Html.ActionLink("View & Enjoy", "Index", "Flower", new { fCategory = item.Id }, new { @class = "btn btn-block btn-success btn-lg" })
                 </div>
             </div>
         </div>

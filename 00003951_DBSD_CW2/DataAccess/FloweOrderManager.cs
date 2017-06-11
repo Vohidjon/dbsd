@@ -28,14 +28,14 @@ namespace _00003951_DBSD_CW2.DataAccess
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [id],
-                                                [customer_id],
-                                                [created_at]
-                                                [delivery_address]
-                                                [delivery_phone]
-                                                [is_gift]
-                                                [gift_card_text]
-                                                [process_status]
+                    cmd.CommandText = @"SELECT [id]
+                                                ,[customer_id]
+                                                ,[created_at]
+                                                ,[delivery_address]
+                                                ,[delivery_phone]
+                                                ,[is_gift]
+                                                ,[gift_card_text]
+                                                ,[process_status]
 
                                         FROM [dbo].[flower_order]
                                         WHERE [id] = @id";
@@ -62,26 +62,27 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
             return order;
         }
-        public IList<FlowerOrder> GetFlowersByCustomer(int customerId)
+        public IList<FlowerOrder> GetFlowerOrdersByCustomer(int customerId)
         {
             IList<FlowerOrder> list = new List<FlowerOrder>();
             using (DbConnection conn = new SqlConnection(ConnectionStr))
             {
                 using (DbCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT [stage_id]
-                                                [customer_id],
-                                                [created_at]
-                                                [delivery_address]
-                                                [delivery_phone]
-                                                [is_gift]
-                                                [gift_card_text]
-                                                [process_status]
+                    cmd.CommandText = @"SELECT [id]
+                                                ,[customer_id]
+                                                ,[created_at]
+                                                ,[delivery_address]
+                                                ,[delivery_phone]
+                                                ,[is_gift]
+                                                ,[gift_card_text]
+                                                ,[process_status]
 
                                                 FROM [dbo].[flower_order]
                                                 WHERE [customer_id] = @customer_id
                                                 ORDER BY [created_at] ASC";
                     conn.Open();
+                    cmd.AddParameter("@customer_id", System.Data.DbType.Int32, customerId);
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -92,9 +93,9 @@ namespace _00003951_DBSD_CW2.DataAccess
                                 CustomerId = reader.GetInt32(1),
                                 CreatedAt = reader.GetDateTime(2),
                                 DeliveryAddress = reader.GetString(3),
-                                DeliveryPhone = reader.GetString(4),
+                                DeliveryPhone = reader.IsDBNull(4) ? null : reader.GetString(4),
                                 IsGift = reader.GetBoolean(5),
-                                GiftCardText = reader.GetString(6),
+                                GiftCardText = reader.IsDBNull(6) ? null : reader.GetString(6),
                                 ProcessStatus = reader.GetInt32(7)
                             };
                             list.Add(order);

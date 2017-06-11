@@ -52,7 +52,11 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </p>
                 <div>
-                    @Html.ActionLink("Order", "Order", new { id = item.Id }, new { @class = "btn btn-block btn-success" })
+                    <form action="/Cart/Add/@item.Id" method="post">
+                        <button type="submit" class="btn btn-block btn-success">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

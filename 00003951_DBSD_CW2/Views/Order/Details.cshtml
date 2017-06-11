@@ -1,0 +1,66 @@
+﻿@model _00003951_DBSD_CW2.Models.FlowerOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FlowerOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGift)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsGift)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiftCardText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiftCardText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcessStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcessStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

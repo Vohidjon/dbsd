@@ -1,0 +1,61 @@
+﻿@model IEnumerable<_00003951_DBSD_CW2.Models.FlowerOrder>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsGift)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiftCardText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProcessStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsGift)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiftCardText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProcessStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

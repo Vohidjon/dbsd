@@ -20,7 +20,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Categories", "Index", "Category")</li>
+                    <li>@Html.ActionLink("Categories", "Index", "Home")</li>
                     <li>@Html.ActionLink("All Flowers", "Index", "Flower")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -33,7 +33,8 @@
                     <div class="navbar-right">
                         <ul class="nav navbar-nav">
                             <li><a>@User.Identity.Name</a></li>
-                            <li>@Html.ActionLink("Log Out", "LogOut", "Login", null, new { @class = "btn btn-success" })</li>
+                            <li><a href="/Cart"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
+                            <li>@Html.ActionLink("Log Out", "LogOut", "Login", null, new { @class = "" })</li>
                         </ul>
                     </div>
                 }
