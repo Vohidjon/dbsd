@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace _00003951_DBSD_CW2.Controllers
 {
-    [Authorize]
     public class FlowerController : BaseController
     {
         // GET: Vacancy

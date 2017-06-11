@@ -13,15 +13,17 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-3">
-            <div>
-                <img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiqzq3c8LLUAhVlOpoKHbltAwsQjRwIBw&url=http%3A%2F%2Fall-free-download.com%2Ffree-photos%2Fflower-images.html&psig=AFQjCNHV1s-_6lcEN2VLmJx2S_jgkalMTg&ust=1497170457167902" alt="Alternate Text" />
-            </div>
-            <div>
-                @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
-            </div>
-            <div>
-                @Html.ActionLink("View & Enjoy", "Order", new { id = item.Id }, new { @class = "btn btn-block btn-success btn-lg" })
+        <div class="col-md-6">
+            <div class="well">
+                <div>
+                    <img style="width: 100%; height: 400px" src="~/Content/flowers/@item.ImgUrl" alt="Alternate Text" />
+                </div>
+                <h3 class="text-center text-primary">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h3>
+                <div>
+                    @Html.ActionLink("View & Enjoy", "Index", "Flower", new { categoryId = item.Id }, new { @class = "btn btn-block btn-success btn-lg" })
+                </div>
             </div>
         </div>
     }

@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Vacancies</h2>
+<h2>Flowers</h2>
 <br />
 
 @using (@Html.BeginForm("Index", "Flower", FormMethod.Get))
@@ -29,38 +29,27 @@
 }
 <br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Department
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Description
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FlowerCategory.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Order", "Order", new { id = item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="well">
+                <div>
+                    <img style="width: 100%; height: 200px" src="~/Content/flowers/@item.ImgUrl" />
+                </div>
+                <h4 class="text-success text-center" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h4>
+                <div>
+                    Category: @Html.ActionLink(@item.FlowerCategory.Name, "Index", new { categoryId = @item.FlowerCategoryId }, new { @class = "text-primary" })
+                </div>
+                <p style="height: 150px; overflow: hidden; font-size: 12px; text-align: justify">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </p>
+                <div>
+                    @Html.ActionLink("Order", "Order", new { id = item.Id }, new { @class = "btn btn-block btn-success" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
