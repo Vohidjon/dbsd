@@ -56,6 +56,39 @@ namespace _00003951_DBSD_CW2.DataAccess
             return customer;
         }
 
+        public IList<Customer> GetCustomers()
+        {
+            IList<Customer> list = new List<Customer>();
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [id],
+                                                [full_name],
+                                                [email],
+                                                [password]
+                                        FROM [dbo].[customer]";
+                    conn.Open();
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customer customer = new Customer()
+                            {
+                                Id = reader.GetInt32(0),
+                                FullName = reader.GetString(1),
+                                Email = reader.GetString(2),
+                                Password = reader.GetString(3)
+                            };
+                            list.Add(customer);
+                        }
+                    }
+                }
+
+            }
+            return list;
+        }
+
         public Customer GetCustomerByEmail(string email)
         {
             Customer customer = null;

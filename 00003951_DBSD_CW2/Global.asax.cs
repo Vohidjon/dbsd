@@ -1,4 +1,4 @@
-﻿using _00003951_DBSD_CW2.App_Start;
+﻿using _00003951_DBSD_CW2.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace _00003951_DBSD_CW2
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Initializes db with table schemas and smaple data
-              DBConfig.initialize();
+            DatabaseManager.CreateDatabaseIfNotExists();
         }
     }
 }

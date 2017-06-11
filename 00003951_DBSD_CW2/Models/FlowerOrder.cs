@@ -45,7 +45,5 @@ namespace _00003951_DBSD_CW2.Models
         public const int UNDER_PROCESS = 1;
         public const int CONFIRMED = 2;
         public const int COMPLETED = 3;
-
-
     }
 }
