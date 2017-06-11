@@ -9,21 +9,10 @@ GO
 CREATE TABLE customer (
 	id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	full_name varchar(250) NOT NULL,
-	email varchar(250) NOT NULL,
+	email varchar(250) NOT NULL UNIQUE,
 	password varchar(250) NOT NULL
 );
 GO
-
-/* todo: used for backup */
-/*
-CREATE TABLE department_backup (
-  department_id INT NOT NULL,
-  department_name varchar(200) NOT NULL,
-  logged_at datetime,
-  operation nvarchar(50),
-  performer nvarchar(50),
-); 
-*/
 
 /* create query for creating table of flower categories*/
 CREATE TABLE flower_category (
@@ -74,6 +63,89 @@ CREATE TABLE shopping_cart_item (
 );
 GO
 
+/* Table for audit of shopping_cart_item table */
+
+CREATE TABLE shopping_cart_item_backup (
+  id INT NOT NULL,
+  customer_id INT NOT NULL,
+  flower_id INT NOT NULL,
+  quantity INT NOT NULL,
+  logged_at datetime,
+  operation nvarchar(50),
+  performer nvarchar(50),
+); 
+GO
+
+
+/* Indexes */
+
+CREATE INDEX [IFK_FlowerOrderCustomerId] ON [dbo].[flower_order] ([customer_id]);
+GO
+
+CREATE INDEX [IFK_OrderItemOrderId] ON [dbo].[order_item] ([order_id]);
+GO
+
+CREATE INDEX [IFK_OrderItemFlowerId] ON [dbo].[order_item] ([flower_id]);
+GO
+
+CREATE INDEX [IFK_FlowerId] ON [dbo].[flower] ([id]);
+GO
+
+CREATE INDEX [IFK_CustomerId] ON [dbo].[customer] ([id]);
+GO
+
+/* Audit Trigger */
+CREATE TRIGGER TRG_InsertShoppingCartItem
+ON [dbo].[shopping_cart_item]
+AFTER INSERT AS
+BEGIN
+
+INSERT INTO shopping_cart_item_backup(
+  id,
+  customer_id,
+  flower_id,
+  quantity,
+  logged_at,
+  operation,
+  performer
+)
+SELECT 
+  id,
+  customer_id,
+  flower_id,
+  quantity,
+  getdate(),
+  'INSERT',
+  user
+    FROM INSERTED
+END
+GO
+
+CREATE TRIGGER TRG_UpdateShoppingCartItem
+ON [dbo].[shopping_cart_item]
+AFTER UPDATE AS
+BEGIN
+
+INSERT INTO shopping_cart_item_backup(
+  id,
+  customer_id,
+  flower_id,
+  quantity,
+  logged_at,
+  operation,
+  performer
+)
+SELECT 
+  id,
+  customer_id,
+  flower_id,
+  quantity,
+  getdate(),
+  'UPDATED',
+  user
+    FROM INSERTED
+END
+GO
 
 /* PROCEDURES & FUNCTIONS */
 
