@@ -152,20 +152,21 @@ CREATE PROCEDURE udpCreateOrderItem
               END;
 GO
 
-/*
-CREATE FUNCTION udfReport(@vacancy_id int, @recruiter_id int)
-  RETURNS TABLE
-    AS
-        RETURN( 
-      SELECT s.stage_id, s.stage_name, v.vacancy_title, count(a.stage_id) as cand_count FROM [dbo].[stage] s
-      LEFT JOIN [dbo].[application] a on a.stage_id = s.stage_id
-      JOIN [dbo].[vacancy] v on a.vacancy_id = v.vacancy_id
-      WHERE a.vacancy_id = @vacancy_id AND v.recruiter_id = @recruiter_id AND a.is_disqualified = 0
-      GROUP BY s.stage_id, s.stage_name, v.vacancy_title
-        );
-
-		*/
-
+CREATE FUNCTION udfPurchasesReport(@customer_id int) 
+RETURNS TABLE AS 
+RETURN (
+	SELECT 
+	f.id, 
+	f.name, 
+	SUM(oi.quantity * f.price) as amount, 
+	COUNT(f.id) as flowers_count 
+	FROM [dbo].[order_item] oi 
+	JOIN [dbo].[flower_order] fo ON oi.order_id = fo.id
+	JOIN [dbo].[flower] f ON oi.flower_id = f.id
+	WHERE fo.customer_id = @customer_id
+	GROUP BY f.id, f.name
+)
+GO
 
 /* INSERT SAMPLE DATA */
 

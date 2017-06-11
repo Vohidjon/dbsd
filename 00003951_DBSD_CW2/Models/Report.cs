@@ -5,12 +5,12 @@ using System.Web;
 
 namespace _00003951_DBSD_CW2.Models
 {
-    public class Report
+    public class FlowerPurchaseReport
     {
-        public int StageId { get; set; }
-        public string StageName { get; set; }
-        public int Count { get; set; }
+        public int FlowerId { get; set; }
+        public string FlowerName { get; set; }
+        public double Amount { get; set; }
         
-        public string VacancyTitle { get; set; }
+        public int FlowersCount { get; set; }
     }
 }

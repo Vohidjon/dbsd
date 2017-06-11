@@ -176,5 +176,37 @@ namespace _00003951_DBSD_CW2.DataAccess
             }
             return list;
         }
+
+        public IList<FlowerPurchaseReport> FlowerPurchaseReport(int customerId)
+        {
+            IList<FlowerPurchaseReport> report = new List<FlowerPurchaseReport>();
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM udfPurchasesReport(@customer_id)";
+
+                    cmd.AddParameter("@customer_id", DbType.Int32, customerId);
+
+                    conn.Open();
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            FlowerPurchaseReport reportItem = new FlowerPurchaseReport()
+                            {
+                                FlowerId = reader.GetInt32(0),
+                                FlowerName = reader.GetString(1),
+                                Amount = reader.IsDBNull(2) ? 0 : reader.GetDouble(2),
+                                FlowersCount = reader.GetInt32(3)
+                            };
+                            report.Add(reportItem);
+                        }
+                    }
+                }
+            }
+            return report;
+        }
+
     }
 }
