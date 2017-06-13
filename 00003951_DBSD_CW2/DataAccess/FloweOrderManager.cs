@@ -60,6 +60,42 @@ namespace _00003951_DBSD_CW2.DataAccess
             return order;
         }
 
+        public IList<OrderItem> GetOrderItems(int id)
+        {
+            IList<OrderItem> list = new List<OrderItem>();
+            using (DbConnection conn = new SqlConnection(ConnectionStr))
+            {
+                using (DbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [id]
+                                                ,[order_id]
+                                                ,[flower_id]
+                                                ,[quantity]
+                                                
+                                                FROM [dbo].[order_item]
+                                                WHERE [order_id] = @order_id";
+                    conn.Open();
+                    cmd.AddParameter("@order_id", System.Data.DbType.Int32, id);
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderItem orderItem = new OrderItem()
+                            {
+                                Id = reader.GetInt32(0),
+                                OrderId = reader.GetInt32(1),
+                                FlowerId = reader.GetInt32(2),
+                                Quantity = reader.GetInt32(3)
+                            };
+                            list.Add(orderItem);
+                        }
+                    }
+                }
+
+            }
+            return list;
+        }
+
         public void CreateOrderItem(OrderItem orderItem)
         {
             using (DbConnection conn = new SqlConnection(ConnectionStr))

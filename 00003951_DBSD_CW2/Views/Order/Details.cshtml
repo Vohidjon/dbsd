@@ -7,11 +7,11 @@
 <h2>Details</h2>
 
 <div>
-    <h4>FlowerOrder</h4>
+    <h4>Flower Order</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            Created At
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DeliveryAddress)
+            DeliveryAddress
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DeliveryPhone)
+            Delivery Phone
         </dt>
 
         <dd>
@@ -36,16 +36,48 @@
 
         
         <dt>
-            @Html.DisplayNameFor(model => model.ProcessStatus)
+            Order Status
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProcessStatus)
+            @Html.DisplayFor(model => model.ProcessStatusText)
         </dd>
 
     </dl>
 </div>
+<h4>Flowers Purchased</h4>
+<table class="table">
+    <tr>
+        <th>
+            Image
+        </th>
+        <th>
+            Flower
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Price
+        </th>
+    </tr>
+
+    @foreach (var item in Model.OrderItems)
+    {
+        <tr>
+            <td>
+                <img style="height: 80px" src="~/Content/flowers/@item.Flower.ImgUrl" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flower.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>@item.Flower.Price $</td>
+        </tr>
+    }
+</table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+     @Html.ActionLink("Back to List", "Index")
 </p>

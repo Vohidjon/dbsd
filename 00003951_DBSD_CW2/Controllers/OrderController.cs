@@ -2,6 +2,7 @@
 using _00003951_DBSD_CW2.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace _00003951_DBSD_CW2.Controllers
@@ -16,6 +17,7 @@ namespace _00003951_DBSD_CW2.Controllers
             Customer user = this.getCustomer();
             FlowerOrderManager manager = new FlowerOrderManager();
             IList<FlowerOrder> list = manager.GetFlowerOrdersByCustomer(user.Id);
+
             return View(list);
         }
 
@@ -24,6 +26,15 @@ namespace _00003951_DBSD_CW2.Controllers
         {
             FlowerOrderManager manager = new FlowerOrderManager();
             FlowerOrder model = manager.GetFlowerOrderById(id);
+
+            IList<Flower> flowers = new FlowerManager().GetFlowers();
+            
+            model.OrderItems = manager.GetOrderItems(model.Id);
+            foreach (OrderItem orderItem in model.OrderItems)
+            {
+                orderItem.Flower = flowers.First(f => f.Id == orderItem.FlowerId);
+            }
+
             return View(model);
         }
 

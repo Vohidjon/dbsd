@@ -41,6 +41,7 @@ namespace _00003951_DBSD_CW2.Models
             }
         }
         public Customer Customer { get; set; }
+        public IList<OrderItem> OrderItems { get; set; }
         public string ProcessStatusText { get; set; }
         public const int UNDER_PROCESS = 1;
         public const int CONFIRMED = 2;
