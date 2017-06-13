@@ -48,8 +48,8 @@ namespace _00003951_DBSD_CW2.Controllers
         [HttpPost]
         public ActionResult Checkout(FlowerOrder order)
         {
-            //try
-            //{
+            try
+            {
                 Customer user = this.getCustomer();
                 ShoppingCartManager cartManager = new ShoppingCartManager();
                 FlowerOrderManager orderManager = new FlowerOrderManager();
@@ -76,11 +76,11 @@ namespace _00003951_DBSD_CW2.Controllers
                     cartManager.DeleteItem(cartItem.Id, user.Id);
                 }
                 return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-                //return View();
-            //}
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

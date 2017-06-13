@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace _00003951_DBSD_CW2.Controllers
 {
-    //[Authorize]
+    
     public class ReportController : BaseController
     {
         // GET: Report/Purchases
